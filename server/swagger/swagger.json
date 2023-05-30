@@ -1,3 +1,116 @@
 {
-    
+  "swagger": "2.0",
+  "info": {
+    "title": "Swagger Document",
+    "description": "Swagger Document",
+    "version": "1.0"
+  },
+  "produces": ["application/json"],
+  "host": "localhost:5000",
+  "basePath": "/api",
+  "securityDefinitions": {
+    "bearerAuth": {
+      "name": "Authorization",
+      "in": "header",
+      "type": "apiKey",
+      "description": "enter the session token includes the word Bearer and a space before the token"
+    }
+  },
+  "paths": {
+    "/login": {
+      "post": {
+        "x-swagger-router-controller": "middleware-name1",
+        "operationId": "login",
+        "tags": ["Login"],
+        "summary": "Log a user",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Login data",
+            "required": true,
+            "schema": {
+              "$ref": "#definitions/login"
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/register": {
+        "post": {
+          "x-swagger-router-controller": "middleware-name2",
+          "operationId": "user",
+          "tags": ["User"],
+          "summary": "Log a user",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Login data",
+              "required": true,
+              "schema": {
+                "$ref": "#definitions/register"
+              }
+            }
+          ],
+          "responses": {}
+        }
+      }
+  },
+  "definitions": {
+    "login": {
+      "properties": {
+        "email": {
+          "type": "string",
+          "description": "Correo electrónico del usuario.(email o phoneNumber).",
+          "example": "karlos123jun@gmail.com"
+        },
+        "phoneNumber": {
+          "type": "number",
+          "description": "Numero de telefono del usuario.(email o phoneNumber).",
+          "example": 4498672378
+        },
+        "password": {
+          "type": "string",
+          "description": "Contraseña del usuario(obligatorio).",
+          "example": "Administrador1."
+        }
+      }
+    },
+    "register": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Constiene el del usuario.(obligatorio)",
+          "example": "Carlos Ivan"
+        },
+        "middlename": {
+          "type": "string",
+          "description": "Constiene el del usuario.(opcional)",
+          "example": "Mercado"
+        },
+        "lastname": {
+          "type": "string",
+          "description": "Constiene el del usuario.(obligatorio)",
+          "example": "Marin"
+        },
+        "email": {
+          "type": "string",
+          "description": "Correo electrónico del usuario.(enviar email y/o phonenumber)",
+          "example": "karlos123jun@gmail.com"
+        },
+        "password": {
+          "type": "string",
+          "description": "Contraseña del usuario.(obligatorio)",
+          "example": "Administrador1."
+        },
+        "phoneNumber": {
+          "type": "number",
+          "description": "Contiene el numero de celula del usuario.(enviar email y/o phonenumber)",
+          "example": "4498672378"
+        }
+      }
+    }
+  }
 }

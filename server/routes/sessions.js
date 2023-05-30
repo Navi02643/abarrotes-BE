@@ -6,8 +6,8 @@ const { validateLoginData, validLogin, isUserActive } = require("../middleware/i
 
 app.post("/", validateLoginData, validLogin, isUserActive, async (req, res) => {
   try {
-    const { email } = req.body;
-    const data = await login(email);
+    const { email, phoneNumber } = req.body;
+    const data = await login(email,phoneNumber);
     return res.status(200).send({
       isValid: data.isValid,
       message: data.message,

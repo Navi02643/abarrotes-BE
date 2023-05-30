@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 
-const { findByEmail, saveToken } = require("../db/index");
+const { findByEmail, saveToken, findByPhoneNumber } = require("../db/index");
 const { userDTO, mapperToken, userLoginDTO } = require("../models/DTO/index");
 const { TokenModel } = require("../models/DTA/index");
 
@@ -21,8 +21,11 @@ const generateToken = async (userDTOFilter) => {
   return tokens;
 };
 
-const login = async (email) => {
-  const user = await findByEmail(email);
+const login = async (email, phoneNumber) => {
+  let user = await findByEmail(email);
+  if(!user) {
+    user = await findByPhoneNumber(phoneNumber)
+  }
   const userDTOFilter = userDTO(user);
   const tokens = await generateToken(userDTOFilter);
   const tokenfilter = mapperToken(tokens)
