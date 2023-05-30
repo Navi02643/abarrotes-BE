@@ -1,12 +1,13 @@
 const express = require("express");
 const app = express();
 
-const { login } = require('../services/index')
-const { validateLoginData } = require('../middleware/index')
+const { login } = require("../services/index");
+const { validateLoginData, validLogin, isUserActive } = require("../middleware/index");
 
-app.post("/", validateLoginData, async (req, res) => {
+app.post("/", validateLoginData, validLogin, isUserActive, async (req, res) => {
   try {
-    const data = await login(req.body);
+    const { email } = req.body;
+    const data = await login(email);
     return res.status(200).send({
       isValid: data.isValid,
       message: data.message,
